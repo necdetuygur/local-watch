@@ -7,50 +7,79 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700;800;900;1000&display=swap");
 
-      body,
-      table,
-      input {
+      * {
+        box-sizing: border-box;
         font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+      }
+
+      .text {
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 100%;
+        background: #fff;
+        color: #000;
+        border: 1px solid #555;
+      }
+
+      .btn {
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 100%;
+        background: #555;
+        color: #fff;
+        border: 1px solid #000;
+      }
+
+      .flex {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+
+      .card {
+        margin: 10px;
+        padding: 10px;
+        background-color: #eee;
+        color: #000;
+      }
+
+      .header {
+        margin: 10px;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
       }
     </style>
     <script src="nocket.js"></script>
   </head>
   <body>
-    <div
-      style="margin: 10px; padding: 10px; background-color: #000; color: #fff"
-    >
-      LocalWatch
-    </div>
-    <div
-      style="margin: 10px; padding: 10px; background-color: #eee; color: #000"
-    >
-      I:
-      <input
-        type="text"
-        id="id"
-        readonly
-        style="margin-bottom: 10px; padding: 10px; width: 90%"
-      />
-      <br />
-      U:
-      <input
-        type="text"
-        id="send"
-        style="margin-bottom: 10px; padding: 10px; width: 90%"
-      />
-      <br />
-      V:
-      <input
-        type="file"
-        id="file"
-        style="margin-bottom: 10px; padding: 10px; width: 90%"
-      />
-      <br />
-      <input
-        type="button"
-        id="sync"
-        style="margin-bottom: 10px; padding: 10px; width: 100%"
-      />
+    <div class="header">LocalWatch</div>
+
+    <div class="card">
+      <div class="flex">
+        <div>I:</div>
+        <div style="flex-grow: 1">
+          <input type="text" id="id" readonly class="text" />
+        </div>
+      </div>
+
+      <div class="flex">
+        <div>U:</div>
+        <div style="flex-grow: 1">
+          <input type="text" id="send" class="text" />
+        </div>
+      </div>
+
+      <div class="flex">
+        <div>V:</div>
+        <div style="flex-grow: 1">
+          <input type="file" id="file" class="text" />
+        </div>
+      </div>
+      <input type="button" id="sync" class="btn" value="Sync" />
       <video
         id="video"
         width="100%"
