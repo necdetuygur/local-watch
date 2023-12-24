@@ -1,4 +1,4 @@
-if (!(document.head.innerText.indexOf("nocket") > -1)) {
+if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   var script = document.createElement("script");
   script.src = "https://necdetuygur.github.io/local-watch/nocket.js";
   document.head.appendChild(script);
