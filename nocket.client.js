@@ -5,7 +5,6 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   /* */
   setTimeout(() => {
     Nocket.Listen((data) => {
-      alert(JSON.stringify(data, null, 2));
       const video =
         window.frames[0].frameElement.contentWindow.document.querySelector(
           "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
