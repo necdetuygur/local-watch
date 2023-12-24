@@ -16,6 +16,8 @@ const send = (id) => {
     speed: video.playbackRate,
   };
   Nocket.Send(id, data);
+  Nocket.Send(id, data);
+  Nocket.Send(id, data);
 };
 
 send(prompt("id", ""));
