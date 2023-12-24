@@ -11,7 +11,7 @@ const send = (id) => {
       "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
     );
   const data = {
-    time: video.currentTime - 0.9,
+    time: video.currentTime,
     play: video.paused ? 0 : 1,
     speed: video.playbackRate,
   };
