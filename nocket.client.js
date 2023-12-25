@@ -47,10 +47,12 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     Nocket.Listen((data) => {
       let hms = "";
       try {
-        hours = Math.floor(data.time / 3600);
-        data.time %= 3600;
-        minutes = Math.floor(data.time / 60);
-        seconds = data.time % 60;
+        let hmsTime = data.time;
+        const hours = ("00" + Math.floor(hmsTime / 3600)).slice(-2);
+        hmsTime %= 3600;
+        const minutes = ("00" + Math.floor(hmsTime / 60)).slice(-2);
+        hmsTime %= 60;
+        const seconds = ("00" + (hmsTime % 60)).slice(-2);
 
         hms = `${hours}:${minutes}:${seconds}`;
       } catch (error) {}
