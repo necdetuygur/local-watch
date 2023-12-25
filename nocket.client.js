@@ -6,6 +6,7 @@ const CreateDenk = () => {
   denk.style.position = "fixed";
   denk.style.left = 0;
   denk.style.top = 0;
+  denk.style.right = 0;
   denk.style.zIndex = 99999;
   denk.style.fontFamily = "courier new";
   denk.style.fontSize = "17px";
