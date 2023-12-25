@@ -16,6 +16,7 @@ const send = (id) => {
     speed: video.playbackRate,
   };
   Nocket.Send(id, data);
+  alert(JSON.stringify(data, null, 2) + "\n gönderildi.");
 };
 
 send(prompt("id", ""));
