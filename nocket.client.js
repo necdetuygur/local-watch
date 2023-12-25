@@ -23,6 +23,13 @@ const Denk = (message) => {
   }, 5e3);
 };
 
+const Copy = (el) => {
+  el.select();
+  el.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(el.value);
+  Denk("ID kopyalandı");
+};
+
 if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   var script = document.createElement("script");
   script.src = "https://necdetuygur.github.io/local-watch/nocket.js";
