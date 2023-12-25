@@ -67,23 +67,11 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
         "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
       ).playbackRate = data.speed;
 
-      let hms = "";
-      try {
-        let hmsTime = data.time;
-        const hours = ("00" + Math.floor(hmsTime / 3600)).slice(-2);
-        hmsTime %= 3600;
-        const minutes = ("00" + Math.floor(hmsTime / 60)).slice(-2);
-        hmsTime %= 60;
-        const seconds = ("00" + (hmsTime % 60)).slice(-2).substring(0, 2);
+      hms = new Date(data.time * 1000).toISOString().slice(11, 19);
+      speed = data.speed;
+      play = data.play == 1 ? "Play" : "Pause";
 
-        hms = `${hours}:${minutes}:${seconds}`;
-      } catch (error) {}
-
-      Denk(
-        `Yeni veri geldi: ${hms} / ${data.speed} / ${
-          data.play == 1 ? "Play" : "Pause"
-        }`
-      );
+      Denk(`Yeni veri geldi: ${hms} / ${speed}x / ${play}`);
     });
   }, 5e3);
 }
