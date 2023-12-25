@@ -28,6 +28,7 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   /* */
   setTimeout(() => {
     CreateDenk();
+    Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
       Denk(`Yeni veri geldi: ${data.time}`);
 
