@@ -7,7 +7,8 @@ const CreateDenk = () => {
   denk.style.left = 0;
   denk.style.top = 0;
   denk.style.zIndex = 99999;
-  denk.style.font = "23px consolas";
+  denk.style.fontFamily = "courier new";
+  denk.style.fontSize = "17px";
   denk.style.color = "#fff";
   denk.style.backgroundColor = "#000";
   denk.style.padding = "5px";
