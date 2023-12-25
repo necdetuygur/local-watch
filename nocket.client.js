@@ -26,7 +26,7 @@ const Denk = (message) => {
   } catch (error) {}
   DenkTimer = setTimeout(() => {
     window.denk.innerHTML = `${inputEl}<br>Denk: Veri bekleniyor`;
-  }, 5e3);
+  }, 1e4);
 };
 
 const Copy = (el) => {
@@ -45,7 +45,21 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     CreateDenk();
     Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
-      Denk(`Yeni veri geldi: ${parseInt(data.time)} / ${data.speed}`);
+      let hms = "";
+      try {
+        hours = Math.floor(data.time / 3600);
+        data.time %= 3600;
+        minutes = Math.floor(data.time / 60);
+        seconds = data.time % 60;
+
+        hms = `${hours}:${minutes}:${seconds}`;
+      } catch (error) {}
+
+      Denk(
+        `Yeni veri geldi: ${hms} / ${data.speed} / ${
+          data.play == 1 ? "Play" : "Pause"
+        }`
+      );
 
       if (data.play == 1) {
         window.frames[0].frameElement.contentWindow.document
