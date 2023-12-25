@@ -45,24 +45,6 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     CreateDenk();
     Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
-      let hms = "";
-      try {
-        let hmsTime = data.time;
-        const hours = ("00" + Math.floor(hmsTime / 3600)).slice(-2);
-        hmsTime %= 3600;
-        const minutes = ("00" + Math.floor(hmsTime / 60)).slice(-2);
-        hmsTime %= 60;
-        const seconds = ("00" + (hmsTime % 60)).slice(-2);
-
-        hms = `${hours}:${minutes}:${seconds}`;
-      } catch (error) {}
-
-      Denk(
-        `Yeni veri geldi: ${hms} / ${data.speed} / ${
-          data.play == 1 ? "Play" : "Pause"
-        }`
-      );
-
       if (data.play == 1) {
         window.frames[0].frameElement.contentWindow.document
           .querySelector(
@@ -79,11 +61,29 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
 
       window.frames[0].frameElement.contentWindow.document.querySelector(
         "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-      ).currentTime = parseFloat(data.time);
+      ).currentTime = data.time;
 
       window.frames[0].frameElement.contentWindow.document.querySelector(
         "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-      ).playbackRate = parseFloat(data.speed);
+      ).playbackRate = data.speed;
+
+      let hms = "";
+      try {
+        let hmsTime = data.time;
+        const hours = ("00" + Math.floor(hmsTime / 3600)).slice(-2);
+        hmsTime %= 3600;
+        const minutes = ("00" + Math.floor(hmsTime / 60)).slice(-2);
+        hmsTime %= 60;
+        const seconds = ("00" + (hmsTime % 60)).slice(-2).substring(0, 2);
+
+        hms = `${hours}:${minutes}:${seconds}`;
+      } catch (error) {}
+
+      Denk(
+        `Yeni veri geldi: ${hms} / ${data.speed} / ${
+          data.play == 1 ? "Play" : "Pause"
+        }`
+      );
     });
   }, 5e3);
 }
