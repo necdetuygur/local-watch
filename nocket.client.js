@@ -1,3 +1,5 @@
+let DenkTimer = null;
+
 const CreateDenk = () => {
   var div = document.createElement("div");
   div.id = "denk";
@@ -19,7 +21,10 @@ const CreateDenk = () => {
 const Denk = (message) => {
   const inputEl = `<input onclick="Copy(this)" style="width: 100%" value="${Nocket.ID}" />`;
   window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
-  setTimeout(() => {
+  try {
+    clearTimeout(DenkTimer);
+  } catch (error) {}
+  DenkTimer = setTimeout(() => {
     window.denk.innerHTML = `${inputEl}<br>Denk: Veri bekleniyor`;
   }, 5e3);
 };
