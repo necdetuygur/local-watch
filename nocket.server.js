@@ -19,4 +19,4 @@ const send = (id) => {
   // alert(JSON.stringify(data, null, 2) + "\n gönderildi.");
 };
 
-send(prompt("id", ""));
+// send(prompt("id", ""));
