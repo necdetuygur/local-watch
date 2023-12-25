@@ -51,9 +51,8 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
         window.frames[0].frameElement.contentWindow.document.querySelector(
           "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
         );
-      if (data.hasOwnProperty("play") && data.play) {
-        data.play == 1 ? video.play() : video.pause();
-      }
+
+      data.play == 1 ? video.play() : video.pause();
       video.currentTime = parseFloat(data.time);
       video.playbackRate = parseFloat(data.speed);
     });
