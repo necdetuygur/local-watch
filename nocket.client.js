@@ -47,14 +47,27 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     Nocket.Listen((data) => {
       Denk(`Yeni veri geldi: ${parseInt(data.time)} / ${data.speed}`);
 
-      const video =
-        window.frames[0].frameElement.contentWindow.document.querySelector(
-          "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-        );
+      if (data.play == 1) {
+        window.frames[0].frameElement.contentWindow.document
+          .querySelector(
+            "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+          )
+          .play();
+      } else {
+        window.frames[0].frameElement.contentWindow.document
+          .querySelector(
+            "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+          )
+          .pause();
+      }
 
-      data.play == 1 ? video.play() : video.pause();
-      video.currentTime = parseFloat(data.time);
-      video.playbackRate = parseFloat(data.speed);
+      window.frames[0].frameElement.contentWindow.document.querySelector(
+        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+      ).currentTime = parseFloat(data.time);
+
+      window.frames[0].frameElement.contentWindow.document.querySelector(
+        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+      ).playbackRate = parseFloat(data.speed);
     });
   }, 5e3);
 }
