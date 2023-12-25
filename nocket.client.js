@@ -17,9 +17,10 @@ const CreateDenk = () => {
 };
 
 const Denk = (message) => {
-  window.denk.innerHTML = `<input style="width: 100%" value="${Nocket.ID}" /><br>Denk: ${message}`;
+  const inputEl = `<input onclick="Copy(this)" style="width: 100%" value="${Nocket.ID}" />`;
+  window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
   setTimeout(() => {
-    window.denk.innerHTML = `<input style="width: 100%" value="${Nocket.ID}" /><br>Denk: Veri bekleniyor`;
+    window.denk.innerHTML = `${inputEl}<br>Denk: Veri bekleniyor`;
   }, 5e3);
 };
 
