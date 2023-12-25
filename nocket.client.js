@@ -7,6 +7,7 @@ const CreateDenk = () => {
   denk.style.left = 0;
   denk.style.top = 0;
   denk.style.right = 0;
+  denk.style.width = "100%";
   denk.style.zIndex = 99999;
   denk.style.fontFamily = "arial";
   denk.style.fontSize = "13px";
