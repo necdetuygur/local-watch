@@ -45,7 +45,7 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     CreateDenk();
     Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
-      Denk(`Yeni veri geldi: ${data.time}`);
+      Denk(`Yeni veri geldi: ${parseInt(data.time)} / ${data.playbackRate}`);
 
       const video =
         window.frames[0].frameElement.contentWindow.document.querySelector(
