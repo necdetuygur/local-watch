@@ -1,4 +1,5 @@
 let DenkTimer = null;
+let ChangeMyNameTimer = null;
 
 const CreateDenk = () => {
   var div = document.createElement("div");
@@ -19,8 +20,16 @@ const CreateDenk = () => {
 };
 
 const Denk = (message) => {
-  Nocket.Name = localStorage.getItem("Nocket.Name");
-  const inputEl = `<input onkeyup="ChangeName(this)" style="width: 100%" value="${Nocket.Name}" />`;
+  const toName = localStorage.getItem("toName");
+  Nocket.Name = localStorage.getItem("Nocket.Name") || new Date().getTime();
+  fetch(`https://nocket-api.vercel.app/${Nocket.Name}/${Nocket.ID}`);
+  const inputEl = `
+    Ben: <input onkeyup="ChangeMyName(this)" style="width: 40%" value="${Nocket.Name}" />
+    #
+    O: <input onkeyup="ChangeToName(this)" style="width: 40%" value="${toName}" />
+    #
+    <input type="button" value="Gönder" onclick="SendName('${toName}')" />
+  `;
   window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
   try {
     clearTimeout(DenkTimer);
@@ -30,24 +39,49 @@ const Denk = (message) => {
   }, 1e4);
 };
 
-let ChangeNameTimer = null;
-const ChangeName = (e) => {
+const ChangeMyName = (e) => {
   Nocket.Name = e.value;
   localStorage.setItem("Nocket.Name", Nocket.Name);
   try {
-    clearTimeout(ChangeNameTimer);
+    clearTimeout(ChangeMyNameTimer);
   } catch (error) {}
-  ChangeNameTimer = setTimeout(() => {
+  ChangeMyNameTimer = setTimeout(() => {
     fetch(`https://nocket-api.vercel.app/${Nocket.Name}/${Nocket.ID}`);
   }, 2e3);
 };
 
-// const Copy = (el) => {
-//   el.select();
-//   el.setSelectionRange(0, 99999);
-//   navigator.clipboard.writeText(el.value);
-//   Denk("ID kopyalandı");
-// };
+const ChangeToName = (e) => {
+  const toName = e.value;
+  localStorage.setItem("toName", toName);
+};
+
+const Copy = (el) => {
+  el.select();
+  el.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(el.value);
+  Denk("ID kopyalandı");
+};
+
+const Send = (id) => {
+  if (!id) return;
+  const video =
+    window.frames[0].frameElement.contentWindow.document.querySelector(
+      "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+    );
+  const data = {
+    time: video.currentTime,
+    play: video.paused ? 0 : 1,
+    speed: video.playbackRate,
+  };
+  Nocket.Send(id, data);
+};
+
+const SendName = async (name) => {
+  const request = await fetch(`https://nocket-api.vercel.app/${name}`);
+  const response = await request.json();
+  const nocketId = response.nocket_id;
+  Send(nocketId);
+};
 
 if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   var script = document.createElement("script");
@@ -86,5 +120,5 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
 
       Denk(`Yeni veri geldi: ${hms} / ${speed}x / ${play}`);
     });
-  }, 5e3);
+  }, 3e3);
 }
