@@ -38,7 +38,7 @@ const ChangeName = (e) => {
     clearTimeout(ChangeNameTimer);
   } catch (error) {}
   ChangeNameTimer = setTimeout(() => {
-    fetch(`https://nocket-api.vercel.app/${name}/${Nocket.ID}`);
+    fetch(`https://nocket-api.vercel.app/${Nocket.Name}/${Nocket.ID}`);
   }, 2e3);
 };
 
