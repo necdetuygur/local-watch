@@ -1,5 +1,6 @@
 let DenkTimer = null;
 let ChangeMyNameTimer = null;
+let OldNocketId = "";
 
 const CreateDenk = () => {
   var div = document.createElement("div");
@@ -22,6 +23,12 @@ const CreateDenk = () => {
 const Denk = (message) => {
   const toName = localStorage.getItem("toName");
   Nocket.Name = localStorage.getItem("Nocket.Name") || new Date().getTime();
+  setInterval(() => {
+    Nocket.Reconnect();
+    if (OldNocketId != Nocket.ID) {
+      fetch(`https://nocket-api.vercel.app/${Nocket.Name}/${Nocket.ID}`);
+    }
+  }, 1e3);
   fetch(`https://nocket-api.vercel.app/${Nocket.Name}/${Nocket.ID}`);
   const inputEl = `
     Ben: <input onkeyup="ChangeMyName(this)" style="width: 30%" value="${Nocket.Name}" />
