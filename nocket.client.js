@@ -24,10 +24,10 @@ const Denk = (message) => {
   Nocket.Name = localStorage.getItem("Nocket.Name") || new Date().getTime();
   fetch(`https://nocket-api.vercel.app/${Nocket.Name}/${Nocket.ID}`);
   const inputEl = `
-    Ben: <input onkeyup="ChangeMyName(this)" style="width: 40%" value="${Nocket.Name}" />
-    #
-    O: <input onkeyup="ChangeToName(this)" style="width: 40%" value="${toName}" />
-    #
+    Ben: <input onkeyup="ChangeMyName(this)" style="width: 30%" value="${Nocket.Name}" />
+    &nbsp; &nbsp;
+    O: <input onkeyup="ChangeToName(this)" style="width: 30%" value="${toName}" />
+    &nbsp; &nbsp;
     <input type="button" value="Gönder" onclick="SendName('${toName}')" />
   `;
   window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
