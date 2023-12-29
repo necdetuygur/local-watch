@@ -19,7 +19,8 @@ const CreateDenk = () => {
 };
 
 const Denk = (message) => {
-  const inputEl = `<input onclick="Copy(this)" style="width: 100%" value="${Nocket.ID}" />`;
+  Nocket.Name = localStorage.getItem("Nocket.Name");
+  const inputEl = `<input onkeyup="ChangeName(this)" style="width: 100%" value="${Nocket.Name}" />`;
   window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
   try {
     clearTimeout(DenkTimer);
@@ -29,12 +30,24 @@ const Denk = (message) => {
   }, 1e4);
 };
 
-const Copy = (el) => {
-  el.select();
-  el.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(el.value);
-  Denk("ID kopyalandı");
+let ChangeNameTimer = null;
+const ChangeName = (e) => {
+  Nocket.Name = e.value;
+  localStorage.setItem("Nocket.Name", Nocket.Name);
+  try {
+    clearTimeout(ChangeNameTimer);
+  } catch (error) {}
+  ChangeNameTimer = setTimeout(() => {
+    fetch(`https://nocket-api.vercel.app/${name}/${Nocket.ID}`);
+  }, 2e3);
 };
+
+// const Copy = (el) => {
+//   el.select();
+//   el.setSelectionRange(0, 99999);
+//   navigator.clipboard.writeText(el.value);
+//   Denk("ID kopyalandı");
+// };
 
 if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   var script = document.createElement("script");
