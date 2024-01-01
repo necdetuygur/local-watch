@@ -14,6 +14,7 @@ const CreateDenk = () => {
   denk.style.width = "100%";
   denk.style.zIndex = 99999;
   denk.style.fontFamily = "arial";
+  denk.style.borderBottom = "1px solid #888";
   denk.style.fontSize = "13px";
   denk.style.color = "#fff";
   denk.style.backgroundColor = "#000";
