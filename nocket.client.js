@@ -23,7 +23,7 @@ const Denk = (message) => {
   const toId = localStorage.getItem("toId");
   const myId = Nocket.ID;
   const inputEl = `
-    Ben: <input onclick="Copy(this)" style="width: 30%" value="${myId}" />
+    Ben: <input onclick="Copy(this)" style="width: 30%" value="${myId}" readonly />
     &nbsp; &nbsp;
     O: <input onkeyup="ChangeToId(this)" style="width: 30%" value="${toId}" />
     &nbsp; &nbsp;
