@@ -25,7 +25,9 @@ const Denk = (message) => {
       Nocket.ID
     }" readonly />
     &nbsp; &nbsp;
-    O: <input onkeyup="ChangeToId(this)" style="width: 30%" value="" />
+    O: <input onkeyup="ChangeToId(this)" style="width: 30%" value="${localStorage.getItem(
+      "toId"
+    )}" />
     &nbsp; &nbsp;
     <input type="button" value="Gönder" onclick="Send('${localStorage.getItem(
       "toId"
