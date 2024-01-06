@@ -20,14 +20,16 @@ const CreateDenk = () => {
 };
 
 const Denk = (message) => {
-  const toId = localStorage.getItem("toId");
-  const myId = Nocket.ID;
   const inputEl = `
-    Ben: <input onclick="Copy(this)" style="width: 30%" value="${myId}" readonly />
+    Ben: <input onclick="Copy(this)" style="width: 30%" value="${
+      Nocket.ID
+    }" readonly />
     &nbsp; &nbsp;
-    O: <input onkeyup="ChangeToId(this)" style="width: 30%" value="${toId}" />
+    O: <input onkeyup="ChangeToId(this)" style="width: 30%" value="" />
     &nbsp; &nbsp;
-    <input type="button" value="Gönder" onclick="Send('${toId}', {})" />
+    <input type="button" value="Gönder" onclick="Send('${localStorage.getItem(
+      "toId"
+    )}')" />
   `;
   window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
   try {
