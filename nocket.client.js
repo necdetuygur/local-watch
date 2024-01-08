@@ -71,7 +71,7 @@ const Send = (id) => {
   while (--i) {
     setTimeout(() => {
       Nocket.Send(id, data);
-    }, i * 10);
+    }, i * 50);
   }
 };
 
