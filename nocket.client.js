@@ -25,7 +25,7 @@ const Denk = (message) => {
       Nocket.ID
     }" readonly />
     &nbsp; &nbsp;
-    O: <input onkeyup="ChangeToId(this)" style="width: 30%" value="${localStorage.getItem(
+    O: <input onkeyup="ChangeToId(this)" onblur="ChangeToId(this)" onchange="ChangeToId(this)" style="width: 30%" value="${localStorage.getItem(
       "toId"
     )}" />
     &nbsp; &nbsp;
