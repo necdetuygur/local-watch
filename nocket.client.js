@@ -67,11 +67,11 @@ const Send = (id) => {
   };
 
   Nocket.Send(id, data);
-  let i = 5;
+  let i = 10;
   while (--i) {
     setTimeout(() => {
       Nocket.Send(id, data);
-    }, i * 100);
+    }, i * 10);
   }
 };
 
