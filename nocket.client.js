@@ -65,7 +65,14 @@ const Send = (id) => {
     play: video.paused ? 0 : 1,
     speed: video.playbackRate,
   };
+
   Nocket.Send(id, data);
+  let i = 5;
+  while (--i) {
+    setTimeout(() => {
+      Nocket.Send(id, data);
+    }, i * 100);
+  }
 };
 
 if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
