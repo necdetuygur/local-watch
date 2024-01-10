@@ -120,7 +120,7 @@ const SendVideoState = () => {
   while (--i) {
     setTimeout(() => {
       Send(toId, videoState);
-    }, i * 100);
+    }, i * 30);
   }
 };
 
