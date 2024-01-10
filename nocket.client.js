@@ -137,9 +137,9 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
           Denk("İletildi");
         } else {
           SendForwarded(data);
+          SetVideoState(data);
         }
       } catch (error) {}
-      SetVideoState(data);
     });
   }, 3e3);
 }
