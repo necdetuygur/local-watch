@@ -118,6 +118,12 @@ const SendVideoState = () => {
   const toId = localStorage.getItem("toId");
   const videoState = GetVideoState();
   Send(toId, videoState);
+  let i = 10;
+  while (--i) {
+    setTimeout(() => {
+      Send(toId, videoState);
+    }, i * 100);
+  }
 };
 
 const SendForwarded = (data) => {
