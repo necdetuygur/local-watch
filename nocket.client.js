@@ -19,7 +19,7 @@ const CreateDenk = () => {
   denk.style.padding = "5px";
 };
 
-const Denk = (message) => {
+const Denk = (message, append = 0) => {
   const inputEl = `
     Ben: <input onclick="Copy(this)" style="width: 30%" value="${
       Nocket.ID
@@ -31,7 +31,13 @@ const Denk = (message) => {
     &nbsp; &nbsp;
     <input type="button" value="Gönder" onclick="SendVideoState()" />
   `;
-  window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
+  if (append) {
+    window.denk.innerHTML = `${inputEl}<br>Denk: ${
+      window.denk.innerHTML + " " + message
+    }`;
+  } else {
+    window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
+  }
   try {
     clearTimeout(DenkTimer);
   } catch (error) {}
