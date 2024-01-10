@@ -140,7 +140,7 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
       console.log(JSON.stringify(data, null, 2));
       try {
         if (data.forwarded) {
-          Denk("İletildi");
+          Denk("İletildi", 1);
         } else {
           SendForwarded(data);
           SetVideoState(data);
