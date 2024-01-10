@@ -21,12 +21,11 @@ const CreateDenk = () => {
 
 const Denk = (message, append = 0) => {
   const nid = Nocket.ID.replace(/\=/gi, "");
+  const toId = localStorage.getItem("toId");
   const inputEl = `
     Ben: <input onclick="Copy(this)" style="width: 30%" value="${nid}" readonly />
     &nbsp; &nbsp;
-    O: <input onkeyup="ChangeToId(this)" onblur="ChangeToId(this)" onchange="ChangeToId(this)" style="width: 30%" value="${localStorage.getItem(
-      "toId"
-    )}" />
+    O: <input onkeyup="ChangeToId(this)" onblur="ChangeToId(this)" onchange="ChangeToId(this)" style="width: 30%" value="${toId}" />
     &nbsp; &nbsp;
     <input type="button" value="Gönder" onclick="SendVideoState()" />
   `;
