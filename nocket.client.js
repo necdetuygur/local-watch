@@ -29,7 +29,7 @@ const Denk = (message) => {
       "toId"
     )}" />
     &nbsp; &nbsp;
-    <input type="button" value="Gönder" onclick="Send('${localStorage.getItem(
+    <input type="button" value="Gönder" onclick="SendVideoState('${localStorage.getItem(
       "toId"
     )}')" />
   `;
@@ -54,24 +54,72 @@ const Copy = (el) => {
   Denk("ID kopyalandı");
 };
 
-const Send = (id) => {
-  if (!id) return;
-  const video =
+const GetVideoState = () => {
+  try {
+    const video =
+      window.frames[0].frameElement.contentWindow.document.querySelector(
+        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+      );
+    return {
+      time: video.currentTime,
+      play: video.paused ? 0 : 1,
+      speed: video.playbackRate,
+    };
+  } catch (error) {
+    return {
+      error: "not video element",
+      time: 0,
+      play: 0,
+      speed: 0,
+    };
+  }
+};
+
+const SetVideoState = (data) => {
+  try {
+    if (data.play == 1) {
+      window.frames[0].frameElement.contentWindow.document
+        .querySelector(
+          "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+        )
+        .play();
+    } else {
+      window.frames[0].frameElement.contentWindow.document
+        .querySelector(
+          "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+        )
+        .pause();
+    }
+
     window.frames[0].frameElement.contentWindow.document.querySelector(
       "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-    );
-  const data = {
-    time: video.currentTime,
-    play: video.paused ? 0 : 1,
-    speed: video.playbackRate,
-  };
+    ).currentTime = data.time;
 
+    window.frames[0].frameElement.contentWindow.document.querySelector(
+      "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+    ).playbackRate = data.speed;
+
+    hms = new Date(data.time * 1000).toISOString().slice(11, 19);
+    speed = data.speed;
+    play = data.play == 1 ? "Play" : "Pause";
+
+    Denk(`Yeni veri geldi: ${hms} / ${speed}x / ${play}`);
+  } catch (error) {}
+};
+
+const Send = (id, data = {}) => {
+  if (!id) return;
   Nocket.Send(id, data);
-  let i = 10;
-  while (--i) {
-    setTimeout(() => {
-      Nocket.Send(id, data);
-    }, i * 50);
+};
+
+const SendVideoState = (id) => {
+  const videoState = GetVideoState();
+  Send(id, videoState);
+};
+
+const SendForwarded = (data) => {
+  if (data.FromID != Nocket.ID) {
+    Send(data.FromID, { forwarded: 1, data });
   }
 };
 
@@ -84,33 +132,15 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     CreateDenk();
     Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
-      if (data.play == 1) {
-        window.frames[0].frameElement.contentWindow.document
-          .querySelector(
-            "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-          )
-          .play();
-      } else {
-        window.frames[0].frameElement.contentWindow.document
-          .querySelector(
-            "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-          )
-          .pause();
-      }
-
-      window.frames[0].frameElement.contentWindow.document.querySelector(
-        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-      ).currentTime = data.time;
-
-      window.frames[0].frameElement.contentWindow.document.querySelector(
-        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-      ).playbackRate = data.speed;
-
-      hms = new Date(data.time * 1000).toISOString().slice(11, 19);
-      speed = data.speed;
-      play = data.play == 1 ? "Play" : "Pause";
-
-      Denk(`Yeni veri geldi: ${hms} / ${speed}x / ${play}`);
+      console.log(JSON.stringify(data, null, 2));
+      try {
+        if (data.forwarded) {
+          Denk("İletildi");
+        } else {
+          SendForwarded(data);
+        }
+      } catch (error) {}
+      SetVideoState(data);
     });
   }, 3e3);
 }
