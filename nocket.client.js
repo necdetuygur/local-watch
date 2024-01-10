@@ -29,9 +29,7 @@ const Denk = (message) => {
       "toId"
     )}" />
     &nbsp; &nbsp;
-    <input type="button" value="Gönder" onclick="SendVideoState('${localStorage.getItem(
-      "toId"
-    )}')" />
+    <input type="button" value="Gönder" onclick="SendVideoState()" />
   `;
   window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
   try {
@@ -112,9 +110,10 @@ const Send = (id, data = {}) => {
   Nocket.Send(id, data);
 };
 
-const SendVideoState = (id) => {
+const SendVideoState = () => {
+  const toId = localStorage.getItem("toId");
   const videoState = GetVideoState();
-  Send(id, videoState);
+  Send(toId, videoState);
 };
 
 const SendForwarded = (data) => {
