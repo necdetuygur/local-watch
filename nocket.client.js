@@ -20,10 +20,9 @@ const CreateDenk = () => {
 };
 
 const Denk = (message, append = 0) => {
+  const nid = Nocket.ID.replace(/\=/gi, "");
   const inputEl = `
-    Ben: <input onclick="Copy(this)" style="width: 30%" value="${
-      Nocket.ID
-    }" readonly />
+    Ben: <input onclick="Copy(this)" style="width: 30%" value="${nid}" readonly />
     &nbsp; &nbsp;
     O: <input onkeyup="ChangeToId(this)" onblur="ChangeToId(this)" onchange="ChangeToId(this)" style="width: 30%" value="${localStorage.getItem(
       "toId"
