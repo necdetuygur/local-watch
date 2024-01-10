@@ -138,6 +138,7 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
         } else {
           SendForwarded(data);
           SetVideoState(data);
+          
         }
       } catch (error) {}
     });
