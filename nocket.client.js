@@ -30,9 +30,7 @@ const Denk = (message, append = 0) => {
     <input type="button" value="Gönder" onclick="SendVideoState()" />
   `;
   if (append) {
-    window.denk.innerHTML = `${inputEl}<br>Denk: ${
-      window.denk.innerHTML + " " + message
-    }`;
+    window.denk.innerHTML += " # " + message;
   } else {
     window.denk.innerHTML = `${inputEl}<br>Denk: ${message}`;
   }
