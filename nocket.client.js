@@ -23,7 +23,7 @@ const Denk = (message, append = 0) => {
   const nid = Nocket.ID.replace(/\=/gi, "");
   const toId = localStorage.getItem("toId");
   const inputEl = `
-    Ben: <input onclick="Copy(this)" style="width: 30%" value="${nid}" readonly />
+    Ben: <input type="button" onclick="Copy('${nid}')" value="ID Kopyala" />
     &nbsp; &nbsp;
     O: <input onkeyup="ChangeToId(this)" onblur="ChangeToId(this)" onchange="ChangeToId(this)" style="width: 30%" value="${toId}" />
     &nbsp; &nbsp;
@@ -47,10 +47,8 @@ const ChangeToId = (e) => {
   localStorage.setItem("toId", toId);
 };
 
-const Copy = (el) => {
-  el.select();
-  el.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(el.value);
+const Copy = (str) => {
+  navigator.clipboard.writeText(str);
   Denk("ID kopyalandı");
 };
 
