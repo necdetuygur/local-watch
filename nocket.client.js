@@ -133,6 +133,38 @@ const Reconnect = async () => {
   await Reconnect();
 };
 
+const MockApi = async (key = "", value = "") => {
+  const endpoint = "https://65a4555a52f07a8b4a3d57cb.mockapi.io/api/nocket";
+  const empty =
+    (await (await fetch(endpoint + "/1")).text()).indexOf("wrong") > -1;
+
+  if (empty) {
+    await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify({
+        data: {},
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+
+  const data = (await (await fetch(endpoint + "/1")).json()).data;
+  data[key] = value;
+
+  await fetch(endpoint + "/1", {
+    method: "PUT",
+    body: JSON.stringify({
+      data,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+  return data;
+};
+
 if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   var script = document.createElement("script");
   script.src = "https://necdetuygur.github.io/local-watch/nocket.js";
