@@ -42,7 +42,7 @@ const Nocket = {
         ...JSON.parse(c.mesaj.replace(/\|/gi, '"')),
       };
       if (data.Type == "SetID") {
-        this.ID = btoa(c.gonderen);
+        this.ID = btoa(c.gonderen).replace(/\=/gi, "");
       }
       callback(data);
     });

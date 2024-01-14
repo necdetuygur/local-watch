@@ -20,7 +20,7 @@ const CreateDenk = () => {
 };
 
 const Denk = (message, append = 0) => {
-  const nid = Nocket.ID.replace(/\=/gi, "");
+  const nid = Nocket.ID;
   const toId = localStorage.getItem("toId");
   const inputEl = `
     Ben: <input type="button" onclick="Copy('${nid}')" value="ID Kopyala" />
@@ -38,7 +38,7 @@ const Denk = (message, append = 0) => {
     clearTimeout(DenkTimer);
   } catch (error) {}
   DenkTimer = setTimeout(() => {
-    window.denk.innerHTML = `${inputEl}<br>Denk: Veri bekleniyor`;
+    window.denk.innerHTML = `${inputEl}<br>Denk ID: ${Nocket.ID}`;
   }, 1e4);
 };
 
