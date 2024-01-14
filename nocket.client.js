@@ -128,12 +128,17 @@ const SendForwarded = (data) => {
   }
 };
 
+const Reconnect = async () => {
+  await Nocket.Reconnect();
+  await Reconnect();
+};
+
 if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   var script = document.createElement("script");
   script.src = "https://necdetuygur.github.io/local-watch/nocket.js";
   document.head.appendChild(script);
   /* */
-  setTimeout(() => {
+  setTimeout(async () => {
     CreateDenk();
     Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
@@ -149,5 +154,6 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
         }
       } catch (error) {}
     });
+    await Reconnect();
   }, 3e3);
 }
