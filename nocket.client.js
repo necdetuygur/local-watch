@@ -20,14 +20,14 @@ const CreateDenk = () => {
 };
 
 const Denk = (message, append = 0) => {
-  const nid = Nocket.ID;
-  const toId = localStorage.getItem("toId");
+  const myName = localStorage.getItem("myName");
+  const toName = localStorage.getItem("toName");
   const inputEl = `
-    Ben: <input type="button" onclick="Copy('${nid}')" value="ID Kopyala" />
+    Ben: <input onkeyup="ChangeMyName(this)" onblur="ChangeMyName(this)" onchange="ChangeMyName(this)" style="width: 30%" value="${myName}" />
     &nbsp; &nbsp;
-    O: <input onkeyup="ChangeToId(this)" onblur="ChangeToId(this)" onchange="ChangeToId(this)" style="width: 30%" value="${toId}" />
+    O: <input onkeyup="ChangeToName(this)" onblur="ChangeToName(this)" onchange="ChangeToName(this)" style="width: 30%" value="${toName}" />
     &nbsp; &nbsp;
-    <input type="button" value="Gönder" onclick="SendVideoState()" />
+    <input type="button" value="Gönder" onclick="SendVideoStateToName()" />
   `;
   if (append) {
     window.denk.innerHTML += " # " + message;
@@ -42,9 +42,15 @@ const Denk = (message, append = 0) => {
   }, 1e4);
 };
 
-const ChangeToId = (e) => {
-  const toId = e.value;
-  localStorage.setItem("toId", toId);
+const ChangeMyName = async (e) => {
+  const myName = e.value;
+  localStorage.setItem("myName", myName);
+  await MockApi(localStorage.getItem("myName"), Nocket.ID);
+};
+
+const ChangeToName = (e) => {
+  const toName = e.value;
+  localStorage.setItem("toName", toName);
 };
 
 const Copy = (str) => {
@@ -110,8 +116,9 @@ const Send = (id, data = {}) => {
   Nocket.Send(id, data);
 };
 
-const SendVideoState = () => {
-  const toId = localStorage.getItem("toId");
+const SendVideoStateToName = async () => {
+  const mockApiData = await MockApi();
+  const toId = mockApiData[localStorage.getItem("toName")];
   const videoState = GetVideoState();
   Send(toId, videoState);
   let i = 10;
@@ -172,6 +179,7 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   /* */
   setTimeout(async () => {
     CreateDenk();
+    await MockApi(localStorage.getItem("myName"), Nocket.ID);
     Denk(`Denk başlatıldı`);
     Nocket.Listen((data) => {
       console.log(JSON.stringify(data, null, 2));
