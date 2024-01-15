@@ -184,10 +184,10 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     Nocket.Listen((data) => {
       console.log(JSON.stringify(data, null, 2));
       try {
-        if (data.forwarded) {
-          Denk("İletildi", 1);
-        } else {
-          if (data.FromID != Nocket.ID) {
+        if (data.FromID != Nocket.ID) {
+          if (data.forwarded) {
+            Denk("İletildi", 1);
+          } else {
             SendForwarded(data);
             SetVideoState(data);
           }
