@@ -38,7 +38,7 @@ const Denk = (message, append = 0) => {
     clearTimeout(DenkTimer);
   } catch (error) {}
   DenkTimer = setTimeout(() => {
-    window.denk.innerHTML = `${inputEl}<br>Denk ID: ${Nocket.ID}`;
+    window.denk.innerHTML = `${inputEl}<br>. . .`;
   }, 1e4);
 };
 
@@ -125,7 +125,7 @@ const SendVideoStateToName = async () => {
   while (--i) {
     setTimeout(() => {
       Send(toId, videoState);
-    }, i * 30);
+    }, i * 50);
   }
 };
 
