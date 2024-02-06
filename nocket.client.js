@@ -120,6 +120,7 @@ const SendVideoStateToName = async () => {
   const mockApiData = await MockApi();
   const toId = mockApiData[localStorage.getItem("toName")];
   const videoState = GetVideoState();
+  Denk(`${videoState.speed}x`, 1);
   Send(toId, videoState);
   let i = 10;
   while (--i) {
