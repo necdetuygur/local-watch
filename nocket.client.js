@@ -105,7 +105,7 @@ const SetVideoState = (data) => {
 
     hms = new Date(data.time * 1000).toISOString().slice(11, 19);
     speed = data.speed;
-    play = data.play == 1 ? "Play" : "Pause";
+    play = data.play == 1 ? "▶️" : "⏸️";
 
     Denk(`Yeni veri geldi: ${hms} / ${speed}x / ${play}`);
   } catch (error) {}
