@@ -120,13 +120,13 @@ const SendVideoStateToName = async () => {
   const mockApiData = await MockApi();
   const toId = mockApiData[localStorage.getItem("toName")];
   const videoState = GetVideoState();
-  Denk(`${videoState.speed}x`, 1);
+  Denk(`${videoState.play ? "▶️" : "⏸️"} ${videoState.speed}x`, 1);
   Send(toId, videoState);
-  let i = 10;
+  let i = 3;
   while (--i) {
     setTimeout(() => {
       Send(toId, videoState);
-    }, i * 50);
+    }, i * 100);
   }
 };
 
@@ -180,8 +180,9 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   /* */
   setTimeout(async () => {
     CreateDenk();
-    await MockApi(localStorage.getItem("myName"), Nocket.ID);
     Denk(`Denk başlatıldı`);
+    await MockApi(localStorage.getItem("myName"), Nocket.ID);
+    Denk(`Nocket ID hazır`, 1);
     Nocket.Listen((data) => {
       console.log(JSON.stringify(data, null, 2));
       try {
