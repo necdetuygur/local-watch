@@ -198,4 +198,21 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
     });
     await Reconnect();
   }, 3e3);
+  /* */
+  setTimeout(async () => {
+    window.frames[0].frameElement.contentWindow.document
+      .querySelector(
+        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+      )
+      .addEventListener("pause", (event) => {
+        SendVideoStateToName();
+      });
+    window.frames[0].frameElement.contentWindow.document
+      .querySelector(
+        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+      )
+      .addEventListener("play", (event) => {
+        SendVideoStateToName();
+      });
+  }, 3e3);
 }
