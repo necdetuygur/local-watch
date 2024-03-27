@@ -200,20 +200,22 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   }, 3e3);
   /* */
   setTimeout(async () => {
-    Denk(`Play & Pause events prepared.`, 1);
-    window.frames[0].frameElement.contentWindow.document
-      .querySelector(
-        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-      )
-      .addEventListener("pause", (event) => {
-        SendVideoStateToName();
-      });
-    window.frames[0].frameElement.contentWindow.document
-      .querySelector(
-        "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
-      )
-      .addEventListener("play", (event) => {
-        SendVideoStateToName();
-      });
+    try {
+      Denk(`Play & Pause events prepared.`, 1);
+      window.frames[0].frameElement.contentWindow.document
+        .querySelector(
+          "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+        )
+        .addEventListener("pause", (event) => {
+          SendVideoStateToName();
+        });
+      window.frames[0].frameElement.contentWindow.document
+        .querySelector(
+          "#player > div.jw-wrapper.jw-reset > div.jw-media.jw-reset > video"
+        )
+        .addEventListener("play", (event) => {
+          SendVideoStateToName();
+        });
+    } catch (error) {}
   }, 3e3);
 }
