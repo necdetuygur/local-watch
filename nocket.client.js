@@ -122,11 +122,11 @@ const SendVideoStateToName = async () => {
   const videoState = GetVideoState();
   Denk(`${videoState.play ? "▶️" : "⏸️"} ${videoState.speed}x`, 1);
   Send(toId, videoState);
-  let i = 7;
+  let i = 3;
   while (--i) {
     setTimeout(() => {
       Send(toId, videoState);
-    }, i * 100);
+    }, i * 333);
   }
 };
 
