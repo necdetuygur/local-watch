@@ -111,7 +111,8 @@ const SetVideoState = (data) => {
   } catch (error) {}
 };
 
-const Send = (id, data = {}) => {
+const Send = async (id, data = {}) => {
+  await Reconnect();
   if (!id) return;
   Nocket.Send(id, data);
 };
