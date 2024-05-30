@@ -1,4 +1,5 @@
 let DenkTimer = null;
+let mockApiData = [];
 
 const CreateDenk = () => {
   var div = document.createElement("div");
@@ -45,7 +46,7 @@ const Denk = (message, append = 0) => {
 const ChangeMyName = async (e) => {
   const myName = e.value;
   localStorage.setItem("myName", myName);
-  await MockApi(localStorage.getItem("myName"), Nocket.ID);
+  mockApiData = await MockApi(localStorage.getItem("myName"), Nocket.ID);
 };
 
 const ChangeToName = (e) => {
@@ -118,7 +119,6 @@ const Send = async (id, data = {}) => {
 };
 
 const SendVideoStateToName = async () => {
-  const mockApiData = await MockApi();
   const toId = mockApiData[localStorage.getItem("toName")];
   const videoState = GetVideoState();
   Denk(`${videoState.play ? "▶️" : "⏸️"} ${videoState.speed}x`, 1);
@@ -160,17 +160,20 @@ const MockApi = async (key = "", value = "") => {
   }
 
   const data = (await (await fetch(endpoint + "/1")).json()).data;
-  data[key] = value;
+  if (value) {
+    data[key] = value;
 
-  await fetch(endpoint + "/1", {
-    method: "PUT",
-    body: JSON.stringify({
-      data,
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
+    await fetch(endpoint + "/1", {
+      method: "PUT",
+      body: JSON.stringify({
+        data,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+
   return data;
 };
 
@@ -182,7 +185,7 @@ if (!(document.head.innerText.indexOf("nocket.js") > -1)) {
   setTimeout(async () => {
     CreateDenk();
     Denk(`Denk başlatıldı`);
-    await MockApi(localStorage.getItem("myName"), Nocket.ID);
+    mockApiData = await MockApi(localStorage.getItem("myName"), Nocket.ID);
     Denk(`Nocket ID hazır`, 1);
     Nocket.Listen((data) => {
       console.log(JSON.stringify(data, null, 2));
